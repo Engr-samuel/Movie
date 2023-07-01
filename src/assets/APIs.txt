@@ -1,0 +1,128 @@
+Certainly! Here are 20 popular endpoints from the TMDB API:
+
+1. Get Movie Details: `/movie/{movie_id}`
+2. Get TV Show Details: `/tv/{tv_id}`
+3. Search Movies: `/search/movie`
+4. Search TV Shows: `/search/tv`
+5. Get Popular Movies: `/movie/popular`
+6. Get Popular TV Shows: `/tv/popular`
+7. Get Top Rated Movies: `/movie/top_rated`
+8. Get Top Rated TV Shows: `/tv/top_rated`
+9. Get Upcoming Movies: `/movie/upcoming`
+10. Get Now Playing Movies: `/movie/now_playing`
+11. Get Trending Movies: `/trending/movie/day`
+12. Get Trending TV Shows: `/trending/tv/day`
+13. Get Movie Credits: `/movie/{movie_id}/credits`
+14. Get TV Show Credits: `/tv/{tv_id}/credits`
+15. Get Movie Images: `/movie/{movie_id}/images`
+16. Get TV Show Images: `/tv/{tv_id}/images`
+17. Get Movie Recommendations: `/movie/{movie_id}/recommendations`
+18. Get TV Show Recommendations: `/tv/{tv_id}/recommendations`
+19. Get Movie Reviews: `/movie/{movie_id}/reviews`
+20. Get TV Show Reviews: `/tv/{tv_id}/reviews`
+
+Please note that you'll need to replace `{movie_id}` and `{tv_id}` with the specific ID of the movie or TV show you're interested in when making the API requests.
+
+
+
+Certainly! Here are 20 more TMDB API endpoints:
+
+1. Get Person Details: `/person/{person_id}`
+2. Get Person Movie Credits: `/person/{person_id}/movie_credits`
+3. Get Person TV Show Credits: `/person/{person_id}/tv_credits`
+4. Get Person Images: `/person/{person_id}/images`
+5. Get Movie Genres: `/genre/movie/list`
+6. Get TV Show Genres: `/genre/tv/list`
+7. Get Discover Movies: `/discover/movie`
+8. Get Discover TV Shows: `/discover/tv`
+9. Get Movie External IDs: `/movie/{movie_id}/external_ids`
+10. Get TV Show External IDs: `/tv/{tv_id}/external_ids`
+11. Get Movie Videos: `/movie/{movie_id}/videos`
+12. Get TV Show Videos: `/tv/{tv_id}/videos`
+13. Get Movie Keywords: `/movie/{movie_id}/keywords`
+14. Get TV Show Keywords: `/tv/{tv_id}/keywords`
+15. Get Movie Release Dates: `/movie/{movie_id}/release_dates`
+16. Get TV Show Season Details: `/tv/{tv_id}/season/{season_number}`
+17. Get TV Show Episode Details: `/tv/{tv_id}/season/{season_number}/episode/{episode_number}`
+18. Get Movie Similar Movies: `/movie/{movie_id}/similar`
+19. Get TV Show Similar TV Shows: `/tv/{tv_id}/similar`
+20. Get Movie Translations: `/movie/{movie_id}/translations`
+
+Remember to replace `{person_id}`, `{movie_id}`, `{tv_id}`, `{season_number}`, and `{episode_number}` with the appropriate IDs or numbers for the specific requests you want to make.
+
+Certainly! Here are 20 more TMDB API endpoints:
+
+1. Get Collection Details: `/collection/{collection_id}`
+2. Get Collection Images: `/collection/{collection_id}/images`
+3. Get Collection Translations: `/collection/{collection_id}/translations`
+4. Get Trending Movies of the Week: `/trending/movie/week`
+5. Get Trending TV Shows of the Week: `/trending/tv/week`
+6. Get Trending People of the Week: `/trending/person/week`
+7. Get TV Show Season Credits: `/tv/{tv_id}/season/{season_number}/credits`
+8. Get TV Show Episode Credits: `/tv/{tv_id}/season/{season_number}/episode/{episode_number}/credits`
+9. Get TV Show Season Images: `/tv/{tv_id}/season/{season_number}/images`
+10. Get TV Show Episode Images: `/tv/{tv_id}/season/{season_number}/episode/{episode_number}/images`
+11. Get Movie Alternative Titles: `/movie/{movie_id}/alternative_titles`
+12. Get TV Show Alternative Titles: `/tv/{tv_id}/alternative_titles`
+13. Get Movie External References: `/movie/{movie_id}/external_references`
+14. Get TV Show External References: `/tv/{tv_id}/external_references`
+15. Get Movie Recommendations based on a TV Show: `/tv/{tv_id}/recommendations`
+16. Get TV Show Recommendations based on a Movie: `/movie/{movie_id}/recommendations`
+17. Get Movie Release Countries: `/movie/{movie_id}/release_countries`
+18. Get TV Show Content Ratings: `/tv/{tv_id}/content_ratings`
+19. Get Movie Watch Providers: `/movie/{movie_id}/watch/providers`
+20. Get TV Show Watch Providers: `/tv/{tv_id}/watch/providers`
+
+As before, ensure to replace `{collection_id}`, `{movie_id}`, `{tv_id}`, `{season_number}`, and `{episode_number}` with the appropriate IDs or numbers for the specific requests you want to make.
+
+
+Certainly! Here are 20 more TMDB API endpoints:
+
+1. Get Movie Keywords: `/movie/{movie_id}/keywords`
+2. Get TV Show Keywords: `/tv/{tv_id}/keywords`
+3. Get Person Tagged Movies: `/person/{person_id}/tagged_movies`
+4. Get Person Tagged TV Shows: `/person/{person_id}/tagged_tv`
+5. Get Movie Release Dates by Country: `/movie/{movie_id}/release_dates`
+6. Get TV Show Episode Groups: `/tv/{tv_id}/episode_groups`
+7. Get TV Show Season Account States: `/tv/{tv_id}/season/{season_number}/account_states`
+8. Get TV Show Episode Account States: `/tv/{tv_id}/season/{season_number}/episode/{episode_number}/account_states`
+9. Get Movie Latest: `/movie/latest`
+10. Get TV Show Latest: `/tv/latest`
+11. Get Movie Popular People: `/movie/{movie_id}/popular_people`
+12. Get TV Show Popular People: `/tv/{tv_id}/popular_people`
+13. Get Movie Reviews: `/movie/{movie_id}/reviews`
+14. Get TV Show Reviews: `/tv/{tv_id}/reviews`
+15. Get Movie Lists: `/movie/{movie_id}/lists`
+16. Get TV Show Lists: `/tv/{tv_id}/lists`
+17. Get Movie Account States: `/movie/{movie_id}/account_states`
+18. Get TV Show Account States: `/tv/{tv_id}/account_states`
+19. Get Movie Videos: `/movie/{movie_id}/videos`
+20. Get TV Show Videos: `/tv/{tv_id}/videos`
+
+Remember to replace `{movie_id}`, `{tv_id}`, `{person_id}`, `{season_number}`, and `{episode_number}` with the appropriate IDs or numbers for the specific requests you want to make.
+
+
+Certainly! Here are 20 more TMDB API endpoints:
+
+1. Get Movie Changes: `/movie/{movie_id}/changes`
+2. Get TV Show Changes: `/tv/{tv_id}/changes`
+3. Get Person Changes: `/person/{person_id}/changes`
+4. Get Movie Account States: `/movie/{movie_id}/account_states`
+5. Get TV Show Account States: `/tv/{tv_id}/account_states`
+6. Get TV Show Season Account States: `/tv/{tv_id}/season/{season_number}/account_states`
+7. Get TV Show Episode Account States: `/tv/{tv_id}/season/{season_number}/episode/{episode_number}/account_states`
+8. Get Movie Rating: `/movie/{movie_id}/rating`
+9. Get TV Show Rating: `/tv/{tv_id}/rating`
+10. Get Movie Related Keywords: `/movie/{movie_id}/related_keywords`
+11. Get TV Show Related Keywords: `/tv/{tv_id}/related_keywords`
+12. Get Movie Release Dates by Region: `/movie/{movie_id}/release_dates/{region}`
+13. Get TV Show Translations: `/tv/{tv_id}/translations`
+14. Get Person Translations: `/person/{person_id}/translations`
+15. Get Movie Videos by Site: `/movie/{movie_id}/videos/{site}`
+16. Get TV Show Videos by Site: `/tv/{tv_id}/videos/{site}`
+17. Get Movie Reviews by Language: `/movie/{movie_id}/reviews/{language}`
+18. Get TV Show Reviews by Language: `/tv/{tv_id}/reviews/{language}`
+19. Get Movie External Links: `/movie/{movie_id}/external_links`
+20. Get TV Show External Links: `/tv/{tv_id}/external_links`
+
+As always, replace `{movie_id}`, `{tv_id}`, `{person_id}`, `{season_number}`, `{episode_number}`, `{region}`, `{site}`, and `{language}` with the appropriate IDs, numbers, regions, sites, or language codes for the specific requests you want to make.
