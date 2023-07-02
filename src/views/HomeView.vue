@@ -153,7 +153,7 @@ export default {
     <Header />
     <Movies />
 
-    <div class="container">
+    <!-- <div class="container">
       <div class="row g-5">
         <div class="col-md-8">
           <div class="container mt-5">
@@ -340,7 +340,7 @@ export default {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <FooterVue />
   </main>
 </template>
