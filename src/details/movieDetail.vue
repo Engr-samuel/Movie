@@ -68,7 +68,7 @@ export default {
           const video = response.data.results
 
           if (video.length > 0) {
-            this.videoKey = video[1].key
+            this.videoKey = video[2].key
           }
         })
         .catch((error) => {
@@ -376,7 +376,7 @@ export default {
                 ></iframe>
 
                 <div v-if="movies">
-                  <h1 class="text-white p-2 title" style="font-weight: 600; font-size: 2opx">{{ movies.original_title }}</h1>
+                  <h1 class="text-white p-2 " style="font-weight: 600; font-size: 2opx">{{ movies.original_title }}</h1>
                 </div>
 
                 <div class="top d-flex p-2">
@@ -502,7 +502,5 @@ nav {
 }
 
 
-@media only screen and (min-width: 768px) {
-  
-}
+
 </style>

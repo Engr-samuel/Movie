@@ -1,17 +1,16 @@
 import './assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
+import { auth } from './firebase'
 import App from './App.vue'
 import router from './router'
-
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
+
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-
+app.use(auth)
 app.mount('#app')
