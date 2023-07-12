@@ -25,12 +25,35 @@ const router = createRouter({
       path: '/movie/details/:id',
       name: 'movieDetails',
       component: () => import('../details/movieDetail.vue'),
+
+    },
+
+    {
+      path: '/movies/',
+      name: 'movies',
+      component: () => import('../views/MoviesList.vue'),
+
+    },
+
+    {
+      path: '/tv/',
+      name: 'tv',
+      component: () => import('../views/TvShows.vue'),
+
     },
 
     {
       path: '/tv/details/:id',
       name: 'tvShowDetails',
       component: () => import('../details/tvShowDetail.vue'),
+
+    },
+
+    {
+      path: '/genre/:id',
+      name: 'genre',
+      component: () => import('../views/genreView.vue'),
+
     },
 
     {
@@ -44,6 +67,14 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/Login.vue')
     },
+
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('../views/pageNotFound.vue')
+    },
+
+
+    
   ]
 
 

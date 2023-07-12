@@ -22,6 +22,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <div id="nav" v-if="$store.state.user">
 <button @click="$store.dispatch('logout')">Logout</button>
 </div> -->
+<notifications group="foo" position="top center"  />
   <RouterView />
 </template>
 

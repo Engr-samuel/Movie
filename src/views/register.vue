@@ -1,8 +1,22 @@
 <template>
-<div class="container">
+<div class="">
     <div class="form-container" id="login-form">
-      <h1>Sign Up</h1>
-      <form>
+     <div class="d-flex">
+         <Icon icon="icon-park-outline:left" color="white" width="25" style="margin-top: 15px; margin-right: 40px" />
+        <h1>Sign Up</h1>
+      </div>
+     
+      <span class="option">Sign up with one of the following options.</span>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-6">
+           <button class="mt-2 google" type="submit" @click.prevent="signUpWithGoogle"><Icon icon="ri:google-fill" color="white" width="25" /></button>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-6">
+           <button class="mt-2 google" type="submit" @click.prevent="signUpWithGoogle"><Icon icon="ic:baseline-apple" width="25"/></button>
+        </div>
+      </div>
+      <form class="mt-5">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required>
 
@@ -11,7 +25,7 @@
 
         <label for="password">Password</label>
         <input type="password" id="password" v-model="password" name="password" required>
-        <button type="submit" @click.prevent="signUpRequest" v-if="! xhrRequest" @click="loginUser">Sign up</button>
+        <button type="submit" class="submit" @click.prevent="signUpRequest" v-if="! xhrRequest">Sign up</button>
           <button class="2" type="submit" v-if="xhrRequest">
         <span class="spinner-border spinner-border-sm"></span> wait..
     </button>
@@ -25,9 +39,14 @@
 
 // import firebase from 'firebase'
 import {getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
+import { Icon } from '@iconify/vue'
 
 
 export default {
+  components: {
+    Icon
+  },
+
   data() {
     return {
       email: '',
@@ -65,17 +84,17 @@ export default {
             console.log(`message: ${error.message}`)
         })
     }
-
   }
 }
+
 </script>
 
 <style scoped>
-* {
+  /* * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
+    } */
 
     body {
       font-family: 'Open Sans', sans-serif;
@@ -86,24 +105,42 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      
     }
 
+      .option {
+      color: #797575;
+    }
+
+
     .form-container {
-      width: 600px;
+      width: 100%;
       margin: 0 auto;
-      padding: 50px;
-      background-color: #333;
+      padding: 20px;
+
       border-radius: 0px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       color: #fff;
     }
 
-    h1 {
-      text-align: center;
+    
+    @media screen and (min-width: 810px){
+      .form-container {
+      width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 0px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+    }
+
+      h1 {
+      text-align: left;
       margin-bottom: 30px;
-      font-size: 36px;
-      color: #b38bff;
+      font-size: 30px;
+      font-weight: 600;
+      color: #fff;
     }
 
     form {
@@ -118,33 +155,51 @@ export default {
 
     input {
       padding: 12px;
-      border: none;
-      border-radius: 5px;
+      border:none;
+      border-radius: 10px;
       margin-bottom: 20px;
       font-size: 16px;
       color: #fff;
-      background-color: #555;
+      background-color: #201f1f;
     }
+               
+          .submit {
+            background-image: linear-gradient(to right, #56b13d 0%, #061700  51%, #52c234  100%);
+            margin: 0px;
+            padding: 15px 45px;
+            text-align: center;
 
-    button {
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            border-radius: 10px;
+            display: block;
+            border: none;
+          }
+          .submit:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+
+
+  
+      .google {
       padding: 10px;
-      background-color: #b38bff;
+      background-color:#1e1e1e;
+
       color: #fff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-size: 18px;
       transition: background-color 0.2s ease-in-out;
+      width: 100%;
     }
-
-    button:hover {
-      background-color: #8c5fb2;
-    }
-
-    a {
+       a {
       text-decoration: none;
-      color: #b38bff;
-      font-size: 18px;
+      color: #f7f7f7;
+      font-size: 15px;
       transition: color 0.2s ease-in-out;
     }
 
@@ -155,5 +210,6 @@ export default {
     p {
       text-align: center;
       margin: 8px;
+      color: #797575;
     }
 </style>

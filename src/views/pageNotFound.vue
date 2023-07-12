@@ -12,9 +12,10 @@ import Header from "../components/Header.vue";
 
 <template>
   <main>
-    <Header />
-    <div class="container">
+
+    <div class="container text-white">
         <h1>PAGE NOT FOUND</h1>
+       <RouterLink to="/">Home</RouterLink>
     </div>
     <FooterVue/>
   </main>

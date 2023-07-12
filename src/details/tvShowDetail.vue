@@ -9,8 +9,12 @@ export default {
     return {
       movies: [],
       cast: [],
-      seasons: '',
-      episodes:'',
+      seasons: [],
+      episodes: [],
+      Enum: '',
+      selectedSeason: 1,
+      numberOfSeasons: '',
+      numberOfEpisodes: '',
       videoKey: null,
       studios: null,
       images: null
@@ -26,15 +30,15 @@ export default {
   mounted() {
     this.fetchMovies()
     this.fetchCast()
-    this.fetchVideos()
     this.fetchImages()
     this.fetchRecommendations()
+    this.showEpisodes(1)
   },
 
   computed: {
-    limitedCast() {
-      return this.cast.slice(0, 5)
-    },
+    // limitedCast() {
+    //   return this.cast.slice(0, 5)
+    // },
 
     formattedRuntime() {
       const hours = Math.floor(this.movies.runtime / 60)
@@ -53,32 +57,108 @@ export default {
         .get(url)
         .then((response) => {
           this.movies = response.data
-          this.seasons = response.data.number_of_seasons
-          this.episodes = response.data.number_of_episodes
+          this.numberOfSeasons = response.data.number_of_seasons
+          this.numberOfEpisodes = response.data.number_of_episodes
+          this.seasons = response.data.seasons
         })
         .catch((error) => {
           console.error('Error fetching movies:', error)
         })
     },
 
-    fetchVideos() {
-      const apiKey = 'e322ec768a4787f47c3a2896362e2b67'
-      const id = this.$route.params.id
-      const url = `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${apiKey}`
+    showEpisodes(seasonNumber) {
 
-      axios
-        .get(url)
-        .then((response) => {
-          const video = response.data.results
+    this.selectedSeason = seasonNumber;
+    const apiKey = 'e322ec768a4787f47c3a2896362e2b67';
+    const tvId = this.$route.params.id;
+    const seasonId = seasonNumber;
 
-          if (video.length > 0) {
-            this.videoKey = video[2].key
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching movies:', error)
-        })
-    },
+    const url = `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonId}?api_key=${apiKey}`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        this.episodes = response.data.episodes;
+        console.log(this.episodes);
+      })
+      .catch((error) => {
+        console.error('Error fetching episodes:', error);
+      });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // showEpisodes(seasonNumber) {
+    //   // Find the selected season based on the season number
+    //   const selectedSeason = this.seasons.find((season) => season.season_number === seasonNumber)
+
+    //   if (selectedSeason) {
+    //     if (this.seasons.length > 0) {
+    //       selectedSeason = this.seasons[0];   
+    //     }
+    //     const apiKey = 'e322ec768a4787f47c3a2896362e2b67'
+    //     const tvId = this.$route.params.id
+    //     const seasonId = selectedSeason.season_number
+
+    //     const url = `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonId}?api_key=${apiKey}`
+
+    //     // Make an API request to fetch the episodes of the selected season
+    //     axios
+    //       .get(url)
+    //       .then((response) => {
+    //         this.episodes = response.data.episodes
+    //         console.log(this.episodes)
+    //       })
+    //       .catch((error) => {
+    //         console.error('Error fetching episodes:', error)
+    //       })
+    //   }
+    // },
+
+        // showEpisodes(season) {
+        //     this.selectedSeason = season;
+
+        //     console.log(season)
+
+        //      const apiKey = 'e322ec768a4787f47c3a2896362e2b67'
+        //      const tvId = this.$route.params.id
+        //       const seasonId = season.season_number;
+
+        //     const url = `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonId}?api_key=${apiKey}`;
+
+        //     // Make an API request to fetch the episodes of the selected season
+        //     axios
+        //       .get(url)
+        //       .then(response => {
+        //         this.episodes = response.data.episodes;
+        //       })
+        //       .catch(error => {
+        //         console.error('Error fetching episodes:', error);
+        //       });
+        //   },
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     fetchImages() {
       const apiKey = 'e322ec768a4787f47c3a2896362e2b67'
@@ -125,6 +205,14 @@ export default {
         .catch((error) => {
           console.error('Error fetching movies:', error)
         })
+    },
+
+        showTvDetail(id) {
+     return  this.$router.push({ path: `/tv/details/${id}`, params: { id } }).catch(() => {}) &&  setTimeout(() => {
+          window.location.reload()
+        }, 2000)
+
+       
     },
 
     getLogoPath(logoPath) {
@@ -218,10 +306,12 @@ export default {
                 <h6 class="title" style="color: green; font-weight: 600">
                   {{ movies.release_date }}
                 </h6>
-                <h6 style="padding-left: 0px" class="text-secondary">Airred: {{ movies.first_air_date }}</h6>
-                
+                <h6 style="padding-left: 0px" class="text-secondary">
+                  Airred: {{ movies.first_air_date }}
+                </h6>
+
                 <h6 style="padding-left: 10px" class="text-secondary">
-                  {{ movies.status }} 
+                  {{ movies.status }}
                 </h6>
                 <h6
                   class="title text-secondary"
@@ -232,11 +322,10 @@ export default {
                 </h6>
               </div>
 
- 
-              <h3 class="title text-white">{{ movies.tagline }}</h3>
-              <p class="pt-3 text-secondary">{{ movies.overview }}</p>
+              <h1 class="title text-white">{{ movies.original_name }}</h1>
+              <p class="pt-0 text-secondary">{{ movies.overview }}</p>
 
-                           <div class="item my-4">
+              <div class="item my-4">
                 <span class="text-white" style="font-weight: 700">Avalable in: </span>
                 <span
                   v-for="lang in movies.spoken_languages"
@@ -247,22 +336,46 @@ export default {
                 </span>
               </div>
 
-               <div class="item my-4">
-                <span class="text-white" style="font-weight: 700">Number of Seasons: </span>
-                <span
-                  class="text-secondary"
-                  style="font-size: 16px; font-weight: 600"
-                  >{{ seasons }}
-                </span>
+              <div class="item my-4 d-flex justify-content-space-between">
+                <span class="text-white d-flex " style="font-weight: 700">Number of Seasons: </span>
+
+                   <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-sm example"
+                  style="width: 30%"
+                >
+                  <option
+                    v-for="season in seasons"
+                    :key="season.id"
+                    @click="showEpisodes(season.season_number)"
+                  >
+                    <span style="cursor: pointer; font-size: 20px; font-weight: 700 !important">Season: {{ season.season_number }}</span>
+                  </option>
+                </select>
+
+               
               </div>
 
-               <div class="item my-4">
-                <span class="text-white" style="font-weight: 700">Number of Episodes: </span>
-                <span
-                  class="text-secondary"
-                  style="font-size: 16px; font-weight: 600"
-                  >{{ episodes }}
-                </span>
+              <div class="item my-4" >
+                <span class="text-white" style="font-weight: 700"><h1>Episodes</h1> </span>
+                  <div class="row">
+                   <div class="col-lg-3 g-2 mt-2"  v-for="episode in episodes"
+                  :key="episode.id">
+                     <div class="card bg-dark">
+                    <div class="card-body">                 
+                      <span class="text-secondary d-flex" style="font-size: 16px; font-weight: 600">
+                      <h6 class="pr-1" style="padding-right: 5px"><Icon icon="octicon:play-16" /> Episode </h6>   {{episode.episode_number}}
+                      </span>
+                    </div>
+                  </div>
+                   </div>
+                  </div>
+
+
+
+
+
+
               </div>
 
               <div v-if="videoKey">
@@ -278,9 +391,9 @@ export default {
 
           <div class="col-lg-5 mt-3">
             <div class="item">
-              <span class="text-white" style="font-weight: 600">Cast:</span>
+              <span class="text-white" style="font-weight: 600">Cast: </span>
               <span
-                v-for="person in limitedCast"
+                v-for="person in cast"
                 :key="person.id"
                 class="text-secondary"
                 style="font-size: 13px; font-weight: 600"
@@ -310,7 +423,7 @@ export default {
               </span>
             </div>
 
-            <div class="bg-white mt-4">
+            <div class="bg-secondary mt-4" style="border-radius: 5px">
               <!-- <img :src="getLogoPath(studio)" alt="" class="img-fluid"> -->
               <div class="row">
                 <div
@@ -341,7 +454,7 @@ export default {
       <h3 class="text-white">Recommendations</h3>
 
       <div class="row row-cols-md-4 row-cols-lg-6">
-        <div class="col" v-for="movie in recommendations" :key="movie.id">
+        <div class="col" v-for="movie in recommendations" :key="movie.id" @click="showTvDetail(movie.id)">
           <img
             :src="'https://image.tmdb.org/t/p/original/' + movie.poster_path"
             class="img-fluid mt-3"
@@ -355,7 +468,11 @@ export default {
   </main>
 
   <main class="d-block d-md-block d-lg-none">
-    <nav class="navbar navbar-expand bg-black" aria-label="Second navbar example">
+    <div
+      class="background-im"
+      v-if="movies"
+    >
+             <nav class="navbar navbar-expand bg-black" aria-label="Second navbar example">
       <div class="container-fluid">
         <router-link class="navbar-brand" to="/"
           ><Icon icon="mingcute:arrow-left-fill" color="white" width="40" class="p-2 mt-1"
@@ -391,91 +508,122 @@ export default {
         </div>
       </div>
     </nav>
-
-     <div v-if="movies">
-          <div v-if="videoKey">
-                  <iframe
-                  :src="'https://www.youtube.com/embed/' + videoKey"
-                  class="iframe2"
-                  frameborder="0"
-                  allowfullscreen
-                ></iframe>
-
-          </div>
-                <div v-if="movies">
-                  <h1 class="text-white p-2 " style="font-weight: 600; font-size: 2opx">{{ movies.original_title }}</h1>
-                </div>
-
-                <div class="top d-flex p-2">
-                <h6 style="padding-left: 0px" class="text-secondary">Airred: {{ movies.first_air_date }}</h6>
-                <h6 style="padding-left: 10px" class="text-secondary">
-                  {{ movies.status }} <Icon icon="mingcute:check-fill" color="white" />
-                </h6>
-                <h6
-                  class="title text-secondary"
-                  style="padding-left: 10px"
-                  v-if="movies.adult == false"
-                >
-                  <Icon icon="uil:18-plus" color="red" />
-                </h6>
-              </div>
-
-              <div class="bt p-2">
-                <button class="btn bg-white text-black" style="width: 100%; font-weight: 600; border-radius: 4px"> <Icon icon="ion:play-sharp" color="black" width="20" /> Play</button>
-
-                <button class="btn bg-dark mt-1 text-white" style="width: 100%; font-weight: 600; border-radius: 4px"> <Icon  icon="material-symbols:download" color="white" width="20" /> Download</button>
-              </div>
-
-              <div class="overview">
-                <p class="p-2 text-secondary" style="font-size: 14px">{{ movies.overview }}</p>
-                <div class="item p-2 pt-0">
-              <span class="text-white" style="font-weight: 600; font-size: 12px;">Starring: </span>
-              <span
-                v-for="person in limitedCast"
-                :key="person.id"
-                class="text-secondary"
-                style="font-size: 12px; font-weight: 600"
-                >{{ person.name + ', ' }}
-              </span>
-            </div>
+    </div>
 
 
-
-            <div class="container">
-                                         <div class="item my-4">
-                <span class="text-white" style="font-weight: 600; font-size: 13px">Avalable in: </span>
-                <span
-                  v-for="lang in movies.spoken_languages"
-                  :key="lang.id"
-                  class="text-secondary"
-                  style="font-size: 13px; font-weight: 600"
-                  >{{ lang.english_name + ', ' }}
-                </span>
-              </div>
-
-               <div class="item my-4">
-                <span class="text-white" style="font-weight: 600; font-size: 13px">Number of Seasons: </span>
-                <span
-                  class="text-secondary"
-                  style="font-size: 16px; font-weight: 600"
-                  >{{ seasons }}
-                </span>
-              </div>
-
-               <div class="item my-4">
-                <span class="text-white" style="font-weight: 600; font-size: 13px">Number of Episodes: </span>
-                <span
-                  class="text-secondary"
-                  style="font-size: 16px; font-weight: 600"
-                  >{{ episodes }}
-                </span>
-              </div>
-            </div>
-              </div>
+        <div v-if="movies">
+      <div v-if="videoKey">
+        <iframe
+          :src="'https://www.youtube.com/embed/' + videoKey"
+          class="iframe2"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
       </div>
 
-       <div class="container mt-5">
-      <h3 class="text-white pb-3" style="border-bottom: 3px solid red">More Like This</h3>
+      <div class="container" v-else>
+          <h3>Opps! No Available Video...</h3>
+      </div>
+      <div v-if="movies">
+        <h1 class="text-white p-2" style="font-weight: 600; font-size: 2opx">
+          {{ movies.original_title }}
+        </h1>
+      </div>
+
+      <div class="top d-flex p-2">
+        <h6 style="padding-left: 0px" class="text-secondary">
+          Airred: {{ movies.first_air_date }}
+        </h6>
+        <h6 style="padding-left: 10px" class="text-secondary">
+          {{ movies.status }} <Icon icon="mingcute:check-fill" color="white" />
+        </h6>
+        <h6 class="title text-secondary" style="padding-left: 10px" v-if="movies.adult == false">
+          <Icon icon="uil:18-plus" color="red" />
+        </h6>
+      </div>
+
+      <div class="bt p-2">
+        <button
+          class="btn bg-white text-black"
+          style="width: 100%; font-weight: 600; border-radius: 4px"
+        >
+          <Icon icon="ion:play-sharp" color="black" width="20" /> Play
+        </button>
+
+        <button
+          class="btn bg-dark mt-1 text-white"
+          style="width: 100%; font-weight: 600; border-radius: 4px"
+        >
+          <Icon icon="material-symbols:download" color="white" width="20" /> Download
+        </button>
+      </div>
+
+      <div class="overview">
+        <p class="p-2 text-secondary" style="font-size: 14px">{{ movies.overview }}</p>
+        <div class="item p-2 pt-0">
+          <span class="text-white" style="font-weight: 600; font-size: 12px">Starring: </span>
+          <span
+            v-for="person in limitedCast"
+            :key="person.id"
+            class="text-secondary"
+            style="font-size: 12px; font-weight: 600"
+            >{{ person.name + ', ' }}
+          </span>
+        </div>
+
+        <div class="container">
+          <div class="item my-4">
+            <span class="text-white" style="font-weight: 600; font-size: 13px">Avalable in: </span>
+            <span
+              v-for="lang in movies.spoken_languages"
+              :key="lang.id"
+              class="text-secondary"
+              style="font-size: 13px; font-weight: 600"
+              >{{ lang.english_name + ', ' }}
+            </span>
+          </div>
+                        <div class="item my-4 d-flex justify-content-space-between">
+                <span class="text-white d-flex " style="font-weight: 700">Number of Seasons: </span>
+
+                   <select
+                  class="form-select form-select-sm mb-3"
+                  aria-label=".form-select-sm example"
+                  style="width: 30%"
+                >
+                  <option
+                    v-for="season in seasons"
+                    :key="season.id"
+                    @click="showEpisodes(season.season_number)"
+                  >
+                    <span style="cursor: pointer; font-size: 20px; font-weight: 700 !important">Season: {{ season.season_number }}</span>
+                  </option>
+                </select>
+
+               
+              </div>
+
+              <div class="item my-4" >
+                <span class="text-white" style="font-weight: 700"><h1>Episodes</h1> </span>
+                  <div class="row">
+                   <div class="col-6 g-2 col-md-4 col-lg-3 mt-2"  v-for="episode in episodes"
+                  :key="episode.id">
+                     <div class="card bg-dark">
+                    <div class="card-body">                 
+                      <span class="text-secondary d-flex" style="font-size: 16px; font-weight: 600">
+                       <h6 class="pr-1" style="padding-right: 5px"><Icon icon="octicon:play-16" /> Episode </h6>   {{episode.episode_number}}
+                      </span>
+                    </div>
+                  </div>
+                   </div>
+                  </div>
+
+              </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h3 class="text-white pb-3" style="border-bottom: 3px solid red">Recommendations</h3>
 
       <div class="row">
         <div class="col-4" v-for="movie in recommendations" :key="movie.id">
@@ -487,12 +635,15 @@ export default {
         </div>
       </div>
     </div>
+
+    <footer-vue></footer-vue>
   </main>
+
+
 </template>
 
 <style scoped>
 nav {
-
 }
 
 .head-add {
@@ -558,6 +709,12 @@ nav {
   margin: 0px;
 }
 
-
-
+select {
+  background: #000;
+  outline: 1px solid #fff;
+  color: #fff;
+  border-radius: 0%;
+  font-weight: 600;
+  margin-left: 20px;
+}
 </style>
